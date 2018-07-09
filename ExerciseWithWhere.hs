@@ -26,3 +26,12 @@ seventh = z / x+y
  where  x = 7
         y = negate x
         z = y * 10
+
+waxon = x * 5
+ where  z = 7
+        x  = y ^ 2
+        y = z + 8        
+
+triple x = x * 3
+
+waxoff x = triple x
