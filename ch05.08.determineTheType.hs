@@ -63,3 +63,15 @@ wahoo2 = (^) bigNum $ 10
 f2x2 = print 
 f2y2 = print "woohoo!"
 f2z2 = f2x2 "Hello world"
+
+f3a = (+)
+f3b = 5
+--f3cWrong = f3b 10
+f3c = f3a f3b 10
+--f3dWrong = f3c 200
+f3d = f3a f3c 200
+
+--f4aWrong = 12 + f4b
+f4a x = 12 + f4b x
+-- f4bWrong = 10000 * f4c 
+f4b c = 1000 * c
