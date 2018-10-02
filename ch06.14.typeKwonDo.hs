@@ -11,4 +11,4 @@ arith :: Num b
     -> b
 
 arith fnAtoB i a = 
-    fnAtoB a
+    fnAtoB a + fromInteger i
