@@ -31,4 +31,6 @@ addFive' = \x -> \y -> if x > y then y + 5 else x + 5
 --addFive'' :: (Integer -> Integer) -> Integer -> Integer
 --addFive'' = (\x -> \y -> if x > y then y else x) (+ 5)
 
+addFive'' = \x y -> ( if x > y then y else x) + 5
+
 mFlip f x y = f y x
