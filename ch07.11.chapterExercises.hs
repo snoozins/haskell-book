@@ -32,4 +32,27 @@ tensDigit' x = fst (divMod x 10)
 hunsD :: Integral a => a -> a
 hunsD' :: Integral a => a -> a
 hunsD x = fst (divMod x 100)
-hunsD' x = undefined
+hunsD' x = tens . tens $ x
+    where tens = \x -> fst (divMod x 10)
+
+hunsD'' :: Integral a => a -> a
+hunsD'' x = tens . tens $ x
+    where tens = \x -> fst . div10 $ x
+          div10 = \x -> divMod x 10
+
+foldBool :: a -> a -> Bool -> a
+foldBool x _ False = x 
+foldBool _ y True = y
+
+foldBoolCase :: a -> a -> Bool -> a
+foldBoolCase x y z = case z of 
+    True -> y
+    False -> x
+
+foldBoolGuard :: a -> a -> Bool -> a
+foldBoolGuard x y z  
+    | z == True     = y
+    | z == False    = x
+
+g :: (a -> b) -> (a, c) -> (b, c)
+g fatob (a, c) = (fatob a, c)
