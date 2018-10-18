@@ -10,11 +10,11 @@ roundTripPF a = read . show $ a
 --show :: Show a => a -> String
 
 roundTripTypeChange :: (Show a, Read b) => a -> b
-roundTripTypeChange x = read (show x) -- not working
+roundTripTypeChange x = read . show $ x
     
 
 main = do 
     print (roundTrip 4)
     print (id 4)
     print (roundTripPF 4)
-    print (roundTripTypeChange 4)
+    print (roundTripTypeChange 4 :: Int)
