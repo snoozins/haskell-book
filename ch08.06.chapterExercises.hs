@@ -34,6 +34,14 @@ frappe :: String -> String
 frappe = flippy "haha"
 
 {-
-appedCtty "wooohoo!" = "woops mrow wooohooo!"
+appedCatty "wooohoo!" = "woops mrow wooohooo!"
 frappe "1" = "1 mrow haha"
+frappe (apedCatty "2") = frappe "woops mrow 2"
+    = woops mrow 2 mrow haha
+apedCatty (frappe "blue") = woops mrow blue mrow haha
+cattyConny  (frappe "pink")
+            (cattyConny "green" (appedCatty "blue"))
+    = cattyConny "pink mrow haha"
+                 "green mrow woops mrow blue"
+    = pink mrow haha mrow green mrow woops mrow blue
 -}
