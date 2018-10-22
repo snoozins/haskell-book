@@ -44,4 +44,35 @@ cattyConny  (frappe "pink")
     = cattyConny "pink mrow haha"
                  "green mrow woops mrow blue"
     = pink mrow haha mrow green mrow woops mrow blue
+cattyConny (flippy "Pugs" "are") "awesome"
+    = are mrow Pugs mrow awesome
+
+dividedBy 15 2
+= 15 - (2, 13) 1
+     - (2, 11) 2
+     - (2, 9) 3
+     - (2, 7) 4
+     - (2, 5) 5
+     - (2, 3) 6
+     - (2, 1) 7
+ = (7, 1)
 -}
+
+sumAll :: (Eq a, Num a) => a -> a
+sumAll 0 = 0 
+sumAll x = sumAll (x-1) + x
+
+multiplyTwoNumbers :: (Integral a) => a -> a -> a
+multiplyTwoNumbers 0 _ = 0
+multiplyTwoNumbers x y = (multiplyTwoNumbers (x-1) y) + y
+
+dividedBy :: Integral a => a -> a -> (a, a) 
+dividedBy num denom = go num denom 0
+    where go n d count
+            | n < d = (count, n)
+            | otherwise =
+                go (n - d) d (count + 1)
+
+data DividedResult =
+      Result Integer
+    | DividedByZero
