@@ -19,10 +19,7 @@ digits :: Int -> [Int]
 digits n = go n []
     where go input output 
             | input < 1 = output
-            | otherwise = go (fst (divMod input 10)) ([snd (divMod input 10)] ++ output)
+            | otherwise = go (div input 10) ([mod input 10] ++ output)
 
 wordNumber :: Int -> String 
-wordNumber n = go (map digitToWord (digits n)) ""
-    where go stringList output
-            | length stringList == 1 = output ++ (head stringList)
-            | otherwise = go (tail stringList) (output ++ (head stringList) ++ "-")
+wordNumber n = concat (intersperse "-" (map digitToWord . digits $ n))
