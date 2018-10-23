@@ -48,13 +48,13 @@ cattyConny (flippy "Pugs" "are") "awesome"
     = are mrow Pugs mrow awesome
 
 dividedBy 15 2
-= 15 - (2, 13) 1
-     - (2, 11) 2
-     - (2, 9) 3
-     - (2, 7) 4
-     - (2, 5) 5
-     - (2, 3) 6
-     - (2, 1) 7
+= 15 - 2 13 1
+     - 2 11 2
+     - 2 9 3
+     - 2 7 4
+     - 2 5 5
+     - 2 3 6
+     - 2 1 7
  = (7, 1)
 -}
 
@@ -73,6 +73,21 @@ dividedBy num denom = go num denom 0
             | otherwise =
                 go (n - d) d (count + 1)
 
+dividedBy2 :: Integral a => a -> a -> DividedResult
+dividedBy2 num denom = go num denom 0 
+    where go n d count
+            | d == 0 = DividedByZero
+            | n < d =  Result count
+            | otherwise =
+                go (n - d) d (count + 1)
+
 data DividedResult =
       Result Integer
     | DividedByZero
+    deriving Show
+
+mc91 :: Integral a => a -> a
+mc91 x = go x 
+    where go x
+            | x <= 100 = 91
+            | otherwise = x - 10
