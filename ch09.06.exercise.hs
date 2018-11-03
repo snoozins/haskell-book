@@ -23,31 +23,22 @@ testStringShouldEqual =
     ]
 
 myWords :: String -> [String]
-myWords x = go x []
-    where go string list 
-            | length string < 1 = list
-            | otherwise = (takeWhile (/= ' ') string) 
-                : go (drop 1 ( dropWhile (/= ' ') string)) list
+myWords x = mySplit ' ' x 
 
 myLines :: String -> [String]
-myLines x = go x []
-    where go string list 
-            | length string < 1 = list
-            | take 1 string == "\n" = go spliter drop 1 string) list
-            | otherwise = (takeWhile (/= '\n') string) 
-                : go spliter ( dropWhile (/= '\n') string) list
+myLines x = mySplit '\n' x
 
 mySplit :: Char -> String -> [String]
 mySplit x y = go x y []
     where go spliter string list 
             | length string < 1 = list
-            | take 1 string == spliter : [] = go (drop 1 string) list
+            | take 1 string == spliter : [] = go spliter (drop 1 string) list
             | otherwise = (takeWhile (/= spliter) string) 
-                : go ( dropWhile (/= spliter) string) list
+                : go spliter ( dropWhile (/= spliter) string) list
 
 main :: IO ()
 main = do
     putStrLn ("Are they equal? " 
         ++ show (myLines sentences == poemShouldEqual))
-    putStrLn (" Are they equal? "
+    putStrLn ("Are they equal? "
         ++ show (myWords myTestString == testStringShouldEqual))
