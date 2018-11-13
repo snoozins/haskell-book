@@ -16,25 +16,31 @@ shiftUp x = x + base
 loopShift :: (Int -> Int) -> Int -> Int
 loopShift f x = mod (f x) range
 
-caesar :: String -> Int -> String 
-caesar [] _ = []
-caesar xs y = map (\x -> chr . shiftUp $ 
+shift :: (Int -> Int) -> String -> String
+shift fs xs = map (\x -> chr . shiftUp $ 
     (loopShift 
-        (\z -> (shiftDown z) + y) 
+        fs
         (ord x))
     ) xs
+
+caesar :: String -> Int -> String 
+caesar [] _ = []
+caesar xs y = shift 
+                (\z -> (shiftDown z) + y) 
+                xs
     
 
 unCeaser :: String -> Int -> String 
 unCeaser [] _ = []
-unCeaser xs y = map (\x -> chr . shiftUp $ 
-    (loopShift 
-        (\z -> (shiftDown z) - y) 
-        (ord x))
-    ) xs
-
+unCeaser xs y = shift 
+                (\z -> (shiftDown z) - y) 
+                xs
 
 validate = (caesar "hello" 3 ) == "khoor"
     && (unCeaser "khoor" 3) == "hello"
     && (caesar "zebra" 3) == "cheud"
     && (unCeaser "cheud" 3) == "zebra"
+    && (caesar "hello" 4 ) == "lipps"
+    && (unCeaser "lipps" 4) == "hello"
+    && (caesar "zebra" 4) == "difve"
+    && (unCeaser "difve" 4) == "zebra"
