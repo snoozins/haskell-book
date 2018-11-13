@@ -19,21 +19,21 @@ loopShift f x = mod (f x) range
 shift :: (Int -> Int) -> String -> String
 shift fs xs = map (\x -> chr . shiftUp $ 
     (loopShift 
-        fs
+        (\z -> fs (shiftDown z))
         (ord x))
     ) xs
 
 caesar :: String -> Int -> String 
 caesar [] _ = []
 caesar xs y = shift 
-                (\z -> (shiftDown z) + y) 
+                (+ y) 
                 xs
     
 
 unCeaser :: String -> Int -> String 
 unCeaser [] _ = []
 unCeaser xs y = shift 
-                (\z -> (shiftDown z) - y) 
+                (subtract y)
                 xs
 
 validate = (caesar "hello" 3 ) == "khoor"
