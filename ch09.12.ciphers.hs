@@ -6,24 +6,35 @@ import Data.Char
 --eg. hello -> khoor
 --eg. zebra -> cheud
 
+base = ord 'a'
+peak = ord 'z'
+range = peak - base + 1
 
+shiftDown x = x - base
+shiftUp x = x + base
 
-rightShift3 :: String -> String
-rightShift3 [] = []
-rightShift3 xs = map (\x -> chr . shift $ x) xs
-    where 
-        shift x = (mod (((ord x) - base) + 3) diff) + base
-        base = ord 'a'
-        diff = 26
-            
-        
+loopShift :: (Int -> Int) -> Int -> Int
+loopShift f x = mod (f x) range
+
 caesar :: String -> Int -> String 
 caesar [] _ = []
-caesar xs y = map (\x -> chr . go $ x) xs
-    where 
-        go x = (loopShift (ord x)) + base
-        loopShift x' = mod (shift x') diff
-        shift x' = (reduce x') + y
-        reduce x' = x' - base
-        base = ord 'a'
-        diff = 26
+caesar xs y = map (\x -> chr . shiftUp $ 
+    (loopShift 
+        (\z -> (shiftDown z) + y) 
+        (ord x))
+    ) xs
+    
+
+unCeaser :: String -> Int -> String 
+unCeaser [] _ = []
+unCeaser xs y = map (\x -> chr . shiftUp $ 
+    (loopShift 
+        (\z -> (shiftDown z) - y) 
+        (ord x))
+    ) xs
+
+
+validate = (caesar "hello" 3 ) == "khoor"
+    && (unCeaser "khoor" 3) == "hello"
+    && (caesar "zebra" 3) == "cheud"
+    && (unCeaser "cheud" 3) == "zebra"
