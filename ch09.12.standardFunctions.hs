@@ -44,20 +44,26 @@ squishAgain (x : xs) = x ++ squishMap id xs
 
 
 myMaximumBy :: (a -> a -> Ordering) -> [a] -> a
-myMaximumBy f xs = go f xs (head xs)
-    where go f xs max
+myMaximumBy f xs = go xs (head xs)
+    where go xs max
             | length xs == 0 = max 
-            | f (head xs) max == GT = go f (tail xs) (head xs)
-            | otherwise = go f (tail xs) max
+            | f (head xs) max == GT = go (tail xs) (head xs)
+            | otherwise = go (tail xs) max
 
 myMinimumBy :: (a -> a -> Ordering) -> [a] -> a
 myMinimumBy f (x : xs) = go x xs x
     where go a (x : xs) max
-            | length xs == 0 = getSmallest x max
-            | otherwise = go x xs (getSmallest a max)
-          getSmallest a b
-            | f a b == LT = a
-            | otherwise = b 
+            | length xs == 0 = customCompare f a max smaller
+            | otherwise = go x xs (customCompare f a max smaller)
+          smaller = LT
+
+myMinimumBy2 :: (a -> a -> Ordering) -> [a] -> a
+myMinimumBy2 _ (x : []) = x
+myMinimumBy2 f (x : xs) = myMinimumBy2 f ((customCompare f x (head xs) LT):(tail xs))
+
+customCompare f a b r
+    | f a b == r = a
+    | otherwise = b 
 
 
 myMaximum :: (Ord a) => [a] -> a
