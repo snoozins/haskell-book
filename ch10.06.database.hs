@@ -19,5 +19,16 @@ theDatabase =
                 (secondsToDiffTime 34123))
  ]
 
+isDbDate :: DatabaseItem -> Bool
+isDbDate (DbDate a) = True
+isDbDate _ = False
+
 filterDbDate :: [DatabaseItem] -> [UTCTime]
-filterDbDate = undefined
+filterDbDate xs = foldr onlyDates [] xs
+
+onlyDates :: DatabaseItem -> [UTCTime] -> [UTCTime]
+onlyDates (DbDate x) xs = x : xs
+onlyDates _ xs = xs
+
+filterDbNumber :: [DatabaseItem] -> [Integer]
+filterDbNumber = undefined
