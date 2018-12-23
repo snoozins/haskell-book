@@ -31,4 +31,19 @@ onlyDates (DbDate x) xs = x : xs
 onlyDates _ xs = xs
 
 filterDbNumber :: [DatabaseItem] -> [Integer]
-filterDbNumber = undefined
+filterDbNumber xs = foldr filterNumbers [] xs
+  where 
+    filterNumbers (DbNumber x) xs = x : xs
+    filterNumbers _ xs = xs
+
+mostRecent :: [DatabaseItem] -> UTCTime
+mostRecent xs = recent (foldr onlyDates [] xs)
+
+recent :: [UTCTime] -> UTCTime
+recent (x : xs) = foldr max x xs
+
+sumDb :: [DatabaseItem] -> Integer
+sumDb xs = foldr (+) 0 (filterDbNumber xs)
+
+averageDb :: [DatabaseItem] -> Double
+averageDb xs = (fromIntegral . sumDb $ xs) / (fromIntegral . length . filterDbNumber $ xs)
