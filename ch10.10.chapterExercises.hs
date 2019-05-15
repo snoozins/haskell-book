@@ -26,5 +26,49 @@ seekritFunc x = div (sum (map length (words x ))) (length (words x))
  -- to give the average letter count per word (rounded down)
  
 seekritPreciseFunc :: (Fractional a) =>  String -> a
---  seekritPreciseFunc = undefined
-seekritPreciseFunc x = (/) (fromIntegral (sum (map length (words x )))) (fromIntegral (length (words x)))
+seekritPreciseFunc x = (/) (fromIntegral . sum $ (map length (words x))) (fromIntegral . length . words $ x)
+
+myOr :: [Bool] -> Bool
+-- myOr a = foldr (||) False a
+myOr = foldr (||) False
+
+myAny :: (a -> Bool) -> [a] -> Bool
+myAny f a = foldr (||) False (fmap f a)
+--myAny = (foldr (||) False .) . fmap
+
+myElem :: Eq a => a -> [a] -> Bool
+myElem x xs = foldr (||) False (fmap (==x) xs)
+
+myElem' :: Eq a => a -> [a] -> Bool
+-- myElem' x xs = myAny (==x) xs
+-- myElem' x = myAny (==x)
+myElem' = myAny . (==)
+
+myReverse :: [a] -> [a]
+-- myReverse xs = foldl flip  [] xs
+myReverse = undefined
+
+myMap :: (a -> b) -> [a] -> [b] 
+myMap = undefined
+
+myFilter :: (a -> Bool) -> [a] -> [a] 
+myFilter = undefined
+
+squish :: [[a]] -> [a]
+squish = undefined
+
+squishMap :: (a -> [b]) -> [a] -> [b]
+squishMap = undefined
+
+squishAgain :: [[a]] -> [a]
+squishAgain = undefined
+
+myMaximumBy :: (a -> a -> Ordering) 
+    -> [a]
+    -> a 
+myMaximumBy = undefined
+
+myMinimumBy :: (a -> a -> Ordering) 
+    -> [a]
+    -> a 
+myMinimumBy = undefined
