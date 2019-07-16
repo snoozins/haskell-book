@@ -43,7 +43,7 @@ getManu (Car manufacturer _ ) = manufacturer
 -- 4. You get an exception 
 
 {-
-11.7 Exercises: Cardinality 
+11.8 Exercises: Cardinality 
 1. PugType -> 1
 2. Airline -> 3
 3. Int16 -> 65536
@@ -51,6 +51,10 @@ getManu (Car manufacturer _ ) = manufacturer
    Integer is unbounded, so could have any number in it
 5. It's x where x is 2^x. eg 2^8 == 256
 
-11.7 Exercises: For Example 
+11.8 Exercises: For Example 
 1. :t MakeExample -> MakeExample :: Example
+
+3. :t MakeExample :: Int -> Example
 -}
+-- data Example = MakeExample  deriving Show
+data NewExample  = MakeExample Int deriving Show
